@@ -20,7 +20,7 @@ public class MainRepo {
         mainDao.delete(mainModel);
     }
 
-    public LiveData<List<MainModel>> getAll() {
+    public LiveData<List<MainModel>> getItems() {
         return mainDao.getAll();
     }
 }
