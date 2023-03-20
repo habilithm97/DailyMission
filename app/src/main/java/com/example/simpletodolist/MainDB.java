@@ -33,14 +33,14 @@ public abstract class MainDB extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-            new InitAsyncTask(instance).execute();
+            new InitDBTask(instance).execute();
         }
     };
 
-    private static class InitAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class InitDBTask extends AsyncTask<Void, Void, Void> {
         private MainDao mainDao;
 
-        private InitAsyncTask(MainDB mainDB) {
+        private InitDBTask(MainDB mainDB) {
             mainDao = mainDB.mainDao();
         }
 
