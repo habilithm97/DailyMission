@@ -9,12 +9,11 @@ public class MainModel {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String content;
-    private String createInfo;
+    private int priority;
 
-    public MainModel(int id, String content, String createInfo) {
-        this.id = id;
+    public MainModel(String content, int priority) {
         this.content = content;
-        this.createInfo = createInfo;
+        this.priority = priority;
     }
 
     public int getId() {
@@ -33,11 +32,11 @@ public class MainModel {
         this.content = content;
     }
 
-    public String getCreateInfo() {
-        return createInfo;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setCreateInfo(String createInfo) {
-        this.createInfo = createInfo;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

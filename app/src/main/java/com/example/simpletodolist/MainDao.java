@@ -13,12 +13,12 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface MainDao {
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = REPLACE) // PrimaryKey가 겹치면 덮어 씀
     void insert(MainModel mainModel);
 
     @Delete
     void delete(MainModel mainModel);
 
-    @Query("SELECT * FROM my_tb")
+    @Query("SELECT * FROM my_tb ORDER BY priority DESC")
     LiveData<List<MainModel>> getAll();
 }
