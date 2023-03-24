@@ -1,9 +1,11 @@
 package com.example.simpletodolist;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +20,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainViewModel mainViewModel;
-
     public static final int ADD_REQUEST = 1;
+    public static final int EDIT_REQUEST = 2;
+
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_REQUEST);
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                mainViewModel.delete(adapter.getPosition(viewHolder.getAdapterPosition()));
+                Toast.makeText(MainActivity.this, "삭제되었습니다. ", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
     @Override

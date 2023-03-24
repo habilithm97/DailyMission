@@ -47,4 +47,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         this.items = items;
         notifyDataSetChanged();
     }
+
+    public MainModel getPosition(int position) {
+        return items.get(position);
+    }
 }
