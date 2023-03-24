@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int EDIT_REQUEST = 2;
 
     private MainViewModel mainViewModel;
+
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +71,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 mainViewModel.delete(adapter.getPosition(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "삭제되었습니다. ", Toast.LENGTH_SHORT).show();
+                showToast(getApplicationContext(), "삭제되었습니다. ");
             }
         }).attachToRecyclerView(recyclerView);
+    }
+
+    private void showToast(Context context, String msg) {
+        if(toast == null) {
+            toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+        } else { // 기존에 토스트 객체가 있으면 추가 생성하지 않음
+            toast.setText(msg);
+        }
+        toast.show();
     }
 
     @Override
