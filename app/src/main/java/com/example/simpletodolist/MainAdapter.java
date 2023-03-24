@@ -18,12 +18,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView contentTv;
-        private TextView priorityTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             contentTv = itemView.findViewById(R.id.contentTv);
-            priorityTv = itemView.findViewById(R.id.priorityTv);
         }
     }
 
@@ -38,7 +36,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull MainAdapter.ViewHolder holder, int position) {
         MainModel item = items.get(position);
         holder.contentTv.setText(item.getContent());
-        holder.priorityTv.setText(item.getPriority());
     }
 
     @Override

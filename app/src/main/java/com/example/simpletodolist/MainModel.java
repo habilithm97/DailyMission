@@ -9,11 +9,9 @@ public class MainModel {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String content;
-    private int priority;
 
-    public MainModel(String content, int priority) {
+    public MainModel(String content) {
         this.content = content;
-        this.priority = priority;
     }
 
     public int getId() {
@@ -30,13 +28,5 @@ public class MainModel {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 }

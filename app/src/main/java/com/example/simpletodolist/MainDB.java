@@ -46,9 +46,9 @@ public abstract class MainDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mainDao.insert(new MainModel("공부", 1));
-            mainDao.insert(new MainModel("운동", 2));
-            mainDao.insert(new MainModel("게임", 3));
+            mainDao.insert(new MainModel("공부"));
+            mainDao.insert(new MainModel("운동"));
+            mainDao.insert(new MainModel("게임"));
             return null;
         }
     }

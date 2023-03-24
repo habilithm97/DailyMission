@@ -19,6 +19,6 @@ public interface MainDao {
     @Delete
     void delete(MainModel mainModel);
 
-    @Query("SELECT * FROM my_tb ORDER BY priority DESC")
+    @Query("SELECT * FROM my_tb")
     LiveData<List<MainModel>> getAll();
 }
