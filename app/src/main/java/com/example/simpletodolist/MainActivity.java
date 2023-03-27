@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         floatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
                 startActivityForResult(intent, ADD_REQUEST);
             }
         });
@@ -74,6 +74,16 @@ public class MainActivity extends AppCompatActivity {
                 showToast(getApplicationContext(), "삭제되었습니다. ");
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(MainModel mainModel) {
+                Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
+                intent.putExtra(AddEditActivity.EXTRA_ID, mainModel.getId());
+                intent.putExtra(AddEditActivity.EXTRA_CONTENT, mainModel.getContent());
+                startActivityForResult(intent, EDIT_REQUEST);
+            }
+        });
     }
 
     private void showToast(Context context, String msg) {
@@ -89,15 +99,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // 할 일 추가하기
         if(requestCode == ADD_REQUEST && resultCode == RESULT_OK) {
-            String content = data.getStringExtra(AddActivity.EXTRA_CONTENT);
+            String content = data.getStringExtra(AddEditActivity.EXTRA_CONTENT);
 
             MainModel mainModel = new MainModel(content);
             mainViewModel.insert(mainModel);
 
-            Toast.makeText(this, "할 일이 추가되었습니다. ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "할 일이 저장되었습니다. ", Toast.LENGTH_SHORT).show();
+
+        // 할 일 수정하기
+        } else if (requestCode == EDIT_REQUEST && resultCode == RESULT_OK){
+            int id = data.getIntExtra(AddEditActivity.EXTRA_ID, -1);
+
+            if(id == -1) { // id가 -1이면
+                Toast.makeText(this, "할 일을 수정할 수 없습니다. ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String content = data.getStringExtra(AddEditActivity.EXTRA_CONTENT);
+
+            MainModel mainModel = new MainModel(content);
+            mainModel.setId(id);
+            mainViewModel.update(mainModel);
+
+            Toast.makeText(this, "할 일이 수정되었습니다. ", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "할 일이 추가되지 않았습니다. ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "할 일이 저장되지 않았습니다. ", Toast.LENGTH_SHORT).show();
         }
     }
 }

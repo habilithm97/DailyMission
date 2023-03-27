@@ -28,6 +28,10 @@ public class MainRepo {
         new DeleteItemTask(mainDao).execute(mainModel);
     }
 
+    public void update(MainModel mainModel) {
+        new UpdateItemTask(mainDao).execute(mainModel);
+    }
+
     public LiveData<List<MainModel>> getAllItems() {
         return allItems;
     }
@@ -58,6 +62,21 @@ public class MainRepo {
         @Override
         protected Void doInBackground(MainModel... mainModels) {
             mainDao.delete(mainModels[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateItemTask extends AsyncTask<MainModel, Void, Void> {
+
+        private MainDao mainDao;
+
+        public UpdateItemTask(MainDao mainDao) {
+            this.mainDao = mainDao;
+        }
+
+        @Override
+        protected Void doInBackground(MainModel... mainModels) {
+            mainDao.update(mainModels[0]);
             return null;
         }
     }

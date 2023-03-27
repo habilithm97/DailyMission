@@ -11,8 +11,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddActivity extends AppCompatActivity {
+public class AddEditActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ID = "com.example.simpletodolist.EXTRA_ID";
     public static final String EXTRA_CONTENT = "com.example.simpletodolist.EXTRA_CONTENT";
 
     private EditText contentEdt;
@@ -30,6 +31,14 @@ public class AddActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         setTitle("할 일 추가하기");
+
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXTRA_ID)) { // EXTRA_ID로 값이 들어오면 수정모드임
+            setTitle("할 일 수정하기");
+            contentEdt.setText(intent.getStringExtra(EXTRA_CONTENT));
+        } else {
+            setTitle("할 일 추가하기");
+        }
     }
 
     @Override
@@ -59,6 +68,14 @@ public class AddActivity extends AppCompatActivity {
 
         Intent intent = new Intent();
         intent.putExtra(EXTRA_CONTENT, content);
+
+        // 사용한 intent에서 EXTRA_ID가 없는 경우(새 아이템 저장인 경우), -1을 id에 저장함
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+
+        if(id != -1) { // 수정모드이면
+            intent.putExtra(EXTRA_ID, id);
+        }
+
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -14,6 +14,7 @@ import java.util.List;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private List<MainModel> items = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -22,6 +23,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             contentTv = itemView.findViewById(R.id.contentTv);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if(onItemClickListener != null && position != RecyclerView.NO_POSITION) {
+                        onItemClickListener.onItemClick(items.get(position));
+                    }
+                }
+            });
         }
     }
 
@@ -50,5 +62,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public MainModel getPosition(int position) {
         return items.get(position);
+    }
+    
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
