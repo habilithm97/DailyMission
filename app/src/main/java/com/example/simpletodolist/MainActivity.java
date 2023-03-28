@@ -43,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
         MainAdapter adapter = new MainAdapter();
