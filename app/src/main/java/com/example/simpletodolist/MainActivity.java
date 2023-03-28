@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         mainViewModel.getAllItems().observe(this, new Observer<List<MainModel>>() {
             @Override
             public void onChanged(List<MainModel> mainModels) { // List의 DataSet이 변경될 경우 호출됨
-                adapter.setItems(mainModels); // 객체들(List)의 변화를 어댑터에 적용함으로써 데이터 값이 변경될 때마다 UI에 실시간으로 나타낼 수 있음
+                //adapter.setItems(mainModels); // 객체들(List)의 변화를 어댑터에 적용함으로써 데이터 값이 변경될 때마다 UI에 실시간으로 나타낼 수 있음
+                adapter.submitList(mainModels); // 리스트 데이터 업데이트
             }
         });
 
