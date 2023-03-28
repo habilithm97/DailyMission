@@ -23,6 +23,9 @@ public interface MainDao {
     @Update
     void update(MainModel mainModel);
 
-    @Query("SELECT * FROM my_tb")
+    @Query("delete from my_tb")
+    void deleteAll();
+
+    @Query("select * from my_tb")
     LiveData<List<MainModel>> getAll();
 }

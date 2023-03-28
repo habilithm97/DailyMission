@@ -34,6 +34,10 @@ public class MainViewModel extends AndroidViewModel {
         mainRepo.update(mainModel);
     }
 
+    public void deleteAll() {
+        mainRepo.deleteAll();
+    }
+
     public LiveData<List<MainModel>> getAllItems() {
         return allItems;
     }

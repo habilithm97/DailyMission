@@ -8,6 +8,7 @@ public class MainModel {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String content;
 
     public MainModel(String content) {
