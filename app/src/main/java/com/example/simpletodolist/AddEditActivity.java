@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,13 +22,14 @@ public class AddEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_edit);
 
         initView();
     }
 
     private void initView() {
         contentEdt = (EditText) findViewById(R.id.contentEdt);
+        contentEdt.requestFocus(); // EditText에 포커스 주기
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         setTitle("할 일 추가하기");
