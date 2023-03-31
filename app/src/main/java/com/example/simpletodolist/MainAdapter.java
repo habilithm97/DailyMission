@@ -6,9 +6,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.simpletodolist.databinding.MainItemBinding;
 
 public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> {
 
@@ -34,13 +37,16 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
         }
     };
 
+    // DataBinding을 위해 TextView와 itemView 대신 MainItemBinding을 사용함
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView contentTv;
+        //private TextView contentTv;
+        private final MainItemBinding itemBinding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            contentTv = itemView.findViewById(R.id.contentTv);
+        public ViewHolder(@NonNull MainItemBinding itemBinding) {
+            super(itemBinding.getRoot());
+            //contentTv = itemView.findViewById(R.id.contentTv);
+            this.itemBinding = itemBinding;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,15 +64,18 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_item, parent, false);
-        return new ViewHolder(itemView);
+        //View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_item, parent, false);
+        MainItemBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.main_item, parent, false);
+        return new ViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //MainModel item = items.get(position);
         MainModel item = getItem(position);
-        holder.contentTv.setText(item.getContent());
+        //holder.contentTv.setText(item.getContent());
+        holder.itemBinding.setTodolist(item);
     }
 
     /*
