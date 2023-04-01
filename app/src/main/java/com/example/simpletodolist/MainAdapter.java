@@ -75,7 +75,7 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
         //MainModel item = items.get(position);
         MainModel item = getItem(position);
         //holder.contentTv.setText(item.getContent());
-        holder.itemBinding.setTodolist(item);
+        holder.itemBinding.setItem(item);
     }
 
     /*

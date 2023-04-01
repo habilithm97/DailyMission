@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -20,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.simpletodolist.databinding.ActivityMainBinding;
+import com.example.simpletodolist.databinding.MainItemBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -33,24 +36,27 @@ public class MainActivity extends AppCompatActivity {
 
     private Toast toast;
 
+    private ActivityMainBinding mainBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         initView();
     }
 
     private void initView() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        //RecyclerView recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        mainBinding.recyclerView.setLayoutManager(layoutManager);
+        mainBinding.recyclerView.setHasFixedSize(true);
 
         MainAdapter adapter = new MainAdapter();
-        recyclerView.setAdapter(adapter);
+        mainBinding.recyclerView.setAdapter(adapter);
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class); // ViewModel 객체 생성
         // List에 포함된 객체들을 관찰함
@@ -62,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton floatingBtn = findViewById(R.id.floatingBtn);
-        floatingBtn.setOnClickListener(new View.OnClickListener() {
+        //FloatingActionButton floatingBtn = findViewById(R.id.floatingBtn);
+        mainBinding.floatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
@@ -82,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 mainViewModel.delete(adapter.getPosition(viewHolder.getAdapterPosition()));
                 showToast(getApplicationContext(), "삭제되었습니다. ");
             }
-        }).attachToRecyclerView(recyclerView);
+        }).attachToRecyclerView(mainBinding.recyclerView);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override

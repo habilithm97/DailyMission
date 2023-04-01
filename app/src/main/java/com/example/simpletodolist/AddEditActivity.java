@@ -2,6 +2,7 @@ package com.example.simpletodolist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,26 +11,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
+
+import com.example.simpletodolist.databinding.ActivityAddEditBinding;
 
 public class AddEditActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "com.example.simpletodolist.EXTRA_ID";
     public static final String EXTRA_CONTENT = "com.example.simpletodolist.EXTRA_CONTENT";
 
-    private EditText contentEdt;
+    private ActivityAddEditBinding addEditBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit);
+        //setContentView(R.layout.activity_add_edit);
+        addEditBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_edit);
 
         initView();
     }
 
     private void initView() {
-        contentEdt = (EditText) findViewById(R.id.contentEdt);
-        contentEdt.requestFocus(); // EditText에 포커스 주기
+        //contentEdt = (EditText) findViewById(R.id.contentEdt);
+        addEditBinding.contentEdt.requestFocus(); // EditText에 포커스 주기
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         setTitle("할 일 추가하기");
@@ -37,7 +42,7 @@ public class AddEditActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)) { // EXTRA_ID로 값이 들어오면 수정모드임
             setTitle("할 일 수정하기");
-            contentEdt.setText(intent.getStringExtra(EXTRA_CONTENT));
+            addEditBinding.contentEdt.setText(intent.getStringExtra(EXTRA_CONTENT));
         } else {
             setTitle("할 일 추가하기");
         }
@@ -61,7 +66,7 @@ public class AddEditActivity extends AppCompatActivity {
     }
 
     private void save() {
-        String content = contentEdt.getText().toString();
+        String content = addEditBinding.contentEdt.getText().toString();
 
         if(content.trim().isEmpty()) {
             Toast.makeText(this, "내용을 입력해주세요. ", Toast.LENGTH_SHORT).show();
