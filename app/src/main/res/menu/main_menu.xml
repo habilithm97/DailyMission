@@ -7,4 +7,9 @@
         android:title="전체 삭제"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/ossLicenses"
+        android:title="오픈소스 라이센스"
+        app:showAsAction="never" />
+
 </menu>

@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.simpletodolist.databinding.ActivityMainBinding;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 import java.util.List;
 
@@ -131,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.deleteAll:
                 showDeleteAllDialog();
+
+            case R.id.ossLicenses:
+                startActivity(new Intent(getApplicationContext(), OssLicensesMenuActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
