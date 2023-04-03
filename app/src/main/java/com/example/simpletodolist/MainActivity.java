@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,41 +18,34 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.simpletodolist.databinding.ActivityMainBinding;
-import com.example.simpletodolist.databinding.MainItemBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     public static final int ADD_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private MainViewModel mainViewModel;
-
-    private Toast toast;
-
     private ActivityMainBinding mainBinding;
+
+    // private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         initView();
     }
 
     private void initView() {
-        //RecyclerView recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         mainBinding.recyclerView.setLayoutManager(layoutManager);
-        mainBinding.recyclerView.setHasFixedSize(true);
+        mainBinding.recyclerView.setHasFixedSize(true); // 항상 고정된 사이즈의 RecyclerView
 
         MainAdapter adapter = new MainAdapter();
         mainBinding.recyclerView.setAdapter(adapter);
@@ -68,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //FloatingActionButton floatingBtn = findViewById(R.id.floatingBtn);
         mainBinding.floatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -86,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 mainViewModel.delete(adapter.getPosition(viewHolder.getAdapterPosition()));
-                showToast(getApplicationContext(), "삭제되었습니다. ");
             }
         }).attachToRecyclerView(mainBinding.recyclerView);
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        // 커스텀 리스너 객체 생성 및 전달
+        adapter.setOnItemClickListener(new MainAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(MainModel mainModel) {
                 Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
@@ -101,47 +92,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showToast(Context context, String msg) {
-        if(toast == null) {
-            toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
-        } else { // 기존에 토스트 객체가 있으면 추가 생성하지 않음
-            toast.setText(msg);
-        }
-        toast.show();
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
         // 할 일 추가하기
         if(requestCode == ADD_REQUEST && resultCode == RESULT_OK) {
-            String content = data.getStringExtra(AddEditActivity.EXTRA_CONTENT);
+            String content = intent.getStringExtra(AddEditActivity.EXTRA_CONTENT);
 
             MainModel mainModel = new MainModel(content);
             mainViewModel.insert(mainModel);
 
-            Toast.makeText(this, "할 일이 저장되었습니다. ", Toast.LENGTH_SHORT).show();
-
         // 할 일 수정하기
         } else if (requestCode == EDIT_REQUEST && resultCode == RESULT_OK){
-            int id = data.getIntExtra(AddEditActivity.EXTRA_ID, -1);
+            int id = intent.getIntExtra(AddEditActivity.EXTRA_ID, -1);
 
-            if(id == -1) { // id가 -1이면
-                Toast.makeText(this, "할 일을 수정할 수 없습니다. ", Toast.LENGTH_SHORT).show();
+            if(id == -1) { // 새 아이템 추가인 경우
                 return;
             }
 
-            String content = data.getStringExtra(AddEditActivity.EXTRA_CONTENT);
+            String content = intent.getStringExtra(AddEditActivity.EXTRA_CONTENT);
 
             MainModel mainModel = new MainModel(content);
             mainModel.setId(id);
             mainViewModel.update(mainModel);
-
-            Toast.makeText(this, "할 일이 수정되었습니다. ", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "할 일이 저장되지 않았습니다. ", Toast.LENGTH_SHORT).show();
-        }
+        } else {}
     }
 
     @Override
@@ -180,4 +155,13 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.show();
     }
+    /*
+    private void showToast(Context context, String msg) {
+        if(toast == null) {
+            toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+        } else { // 기존에 토스트 객체가 있으면 추가 생성하지 않음
+            toast.setText(msg);
+        }
+        toast.show();
+    } */
 }

@@ -3,7 +3,6 @@ package com.example.simpletodolist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -16,7 +15,7 @@ import com.example.simpletodolist.databinding.MainItemBinding;
 public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> {
 
     //private List<MainModel> items = new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener; // 전달된 리스너 객체를 저장할 변수
 
     public MainAdapter() {
         super(DIFF_CALLBACK);
@@ -40,14 +39,13 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
     // DataBinding을 위해 TextView와 itemView 대신 MainItemBinding을 사용함
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        //private TextView contentTv;
         private final MainItemBinding itemBinding;
 
         public ViewHolder(@NonNull MainItemBinding itemBinding) {
             super(itemBinding.getRoot());
-            //contentTv = itemView.findViewById(R.id.contentTv);
             this.itemBinding = itemBinding;
 
+            // 아이템 클릭 이벤트 핸들러 메서드에서 리스너 객체 메서드 호출
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,7 +62,6 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_item, parent, false);
         MainItemBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.main_item, parent, false);
         return new ViewHolder(itemBinding);
@@ -72,10 +69,21 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //MainModel item = items.get(position);
         MainModel item = getItem(position);
-        //holder.contentTv.setText(item.getContent());
         holder.itemBinding.setItem(item);
+    }
+
+    public MainModel getPosition(int position) {
+        return getItem(position);
+    }
+
+    public interface OnItemClickListener { // 커스텀 리스너 인터페이스 정의
+        void onItemClick(MainModel mainModel);
+    }
+
+    // 리스너 객체를 전달하는 메서드
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     /*
@@ -89,12 +97,4 @@ public class MainAdapter extends ListAdapter<MainModel, MainAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
      */
-
-    public MainModel getPosition(int position) {
-        return getItem(position);
-    }
-    
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
 }

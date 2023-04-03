@@ -9,15 +9,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.simpletodolist.databinding.ActivityAddEditBinding;
 
 public class AddEditActivity extends AppCompatActivity {
-
     public static final String EXTRA_ID = "com.example.simpletodolist.EXTRA_ID";
     public static final String EXTRA_CONTENT = "com.example.simpletodolist.EXTRA_CONTENT";
 
@@ -26,14 +22,12 @@ public class AddEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_add_edit);
         addEditBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_edit);
 
         initView();
     }
 
     private void initView() {
-        //contentEdt = (EditText) findViewById(R.id.contentEdt);
         addEditBinding.contentEdt.requestFocus(); // EditText에 포커스 주기
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
@@ -76,13 +70,13 @@ public class AddEditActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_CONTENT, content);
 
-        // 사용한 intent에서 EXTRA_ID가 없는 경우(새 아이템 저장인 경우), -1을 id에 저장함
+        // 사용한 intent에서 EXTRA_ID가 없는 경우(새 아이템 추가인 경우), -1을 id에 저장함
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
 
-        if(id != -1) { // 수정모드이면
-            intent.putExtra(EXTRA_ID, id);
+        if(id != -1) { // 새 아이템 추가가 아닌 경우 == 수정인 경우
+            intent.putExtra(EXTRA_ID, id); // 기존 id put
         }
-
+        
         setResult(RESULT_OK, intent);
         finish();
     }

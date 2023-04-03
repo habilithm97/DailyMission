@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-// 로컬 DB인 Room과 ViewModel 간의 다리 역할을 하는 Repository 클래스
+// 로컬 DB인 Room과 ViewModel 간의 다리 역할을 해주는 Repository 클래스
 // DB의 상태 변화를 담당하는 Dao의 메소드 호출은 AsyncTask로 진행함
 public class MainRepo {
 

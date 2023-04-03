@@ -14,7 +14,7 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface MainDao {
 
-    @Insert(onConflict = REPLACE) // PrimaryKey가 겹치면 덮어 씀
+    @Insert(onConflict = REPLACE) // 충돌 처리 방식 -> PrimaryKey가 겹칠 경우 덮어 쓰기
     void insert(MainModel mainModel);
 
     @Delete
