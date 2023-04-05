@@ -29,8 +29,6 @@ public class AddEditActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        addEditBinding.contentEdt.requestFocus(); // EditText에 포커스 주기
-
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         setTitle("할 일 추가하기");
 
@@ -40,6 +38,7 @@ public class AddEditActivity extends AppCompatActivity {
             addEditBinding.contentEdt.setText(intent.getStringExtra(EXTRA_CONTENT));
         } else {
             setTitle("할 일 추가하기");
+            addEditBinding.contentEdt.requestFocus(); // EditText에 포커스 주기
         }
 
         addEditBinding.saveBtn.setOnClickListener(new View.OnClickListener() {
