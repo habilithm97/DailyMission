@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mainBinding.recyclerView.setHasFixedSize(true); // 항상 고정된 사이즈의 RecyclerView
 
         MainAdapter adapter = new MainAdapter();
+        //mainBinding.recyclerView.smoothScrollToPosition(adapter.getCurrentList());
         mainBinding.recyclerView.setAdapter(adapter);
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class); // ViewModel 객체 생성
