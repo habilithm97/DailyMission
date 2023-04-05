@@ -26,7 +26,7 @@
             android:layout_alignParentRight="true"
             android:layout_margin="32dp"
             android:src="@drawable/add"
-            android:backgroundTint="#FFFF00"/>
+            android:backgroundTint="#FFD700"/>
 
     </RelativeLayout>
 </layout>

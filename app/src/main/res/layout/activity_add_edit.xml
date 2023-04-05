@@ -6,21 +6,29 @@
             type="com.example.simpletodolist.MainModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:padding="16dp">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
             <EditText
                 android:id="@+id/contentEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        </ScrollView>
-    </LinearLayout>
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="저장하기"
+                android:background="@drawable/custom_btn"/>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

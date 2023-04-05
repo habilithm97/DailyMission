@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.simpletodolist.databinding.ActivityAddEditBinding;
@@ -40,6 +41,13 @@ public class AddEditActivity extends AppCompatActivity {
         } else {
             setTitle("할 일 추가하기");
         }
+
+        addEditBinding.saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
     }
 
     @Override
