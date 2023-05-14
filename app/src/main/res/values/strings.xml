@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">오늘의 미션</string>
+    <string name="app_name">DailyMission</string>
+
+    <string name="allDelete_menu">All Delete</string>
+    <string name="ossLicenses_menu">Open Source Lincenses</string>
+    <string name="save">save</string>
 </resources>

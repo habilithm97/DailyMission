@@ -1,6 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.SimpleTodoList" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/mediumpurple</item>
+    <!--기본 테마-->
+    <style name="Theme.DailyMission" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--주 색상-->
+        <item name="colorPrimary">@color/medium_purple</item>
+        <item name="colorPrimaryVariant">#0000ff</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!--부 색상-->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!--상태바 색상-->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 </resources>

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.simpletodolist.MainModel" />
+            type="com.example.dailymission.room.MainModel" />
     </data>
 
     <androidx.cardview.widget.CardView

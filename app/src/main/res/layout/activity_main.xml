@@ -3,7 +3,7 @@
     <data>
         <variable
             name="main"
-            type="com.example.simpletodolist.MainModel" />
+            type="com.example.dailymission.room.MainModel" />
     </data>
 
     <RelativeLayout

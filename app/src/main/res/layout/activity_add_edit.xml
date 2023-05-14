@@ -3,7 +3,7 @@
     <data>
         <variable
             name="addedit"
-            type="com.example.simpletodolist.MainModel" />
+            type="com.example.dailymission.room.MainModel" />
     </data>
 
     <ScrollView
@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="저장하기"
+                android:text="@string/save"
                 android:background="@drawable/custom_btn"/>
 
         </LinearLayout>

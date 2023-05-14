@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/deleteAll"
-        android:title="전체 삭제"
+        android:title="@string/allDelete_menu"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/ossLicenses"
-        android:title="오픈소스 라이센스"
+        android:title="@string/ossLicenses_menu"
         app:showAsAction="never" />
 
 </menu>
